@@ -32,7 +32,7 @@ app.post("/webhook", (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log("color:: " + JSON.stringify(webhook_event.quick_replies));
+      console.log("color:: " + JSON.stringify(webhook_event.quick_reply));
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
@@ -99,19 +99,21 @@ function handleMessage(sender_psid, received_message) {
           content_type: "text",
           title: "Red",
           payload: "Red",
-          image_url: "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2F453ccc62-8f27-41a6-842a-4c2ac38b1615.image.png?v=1572289097721"
+          image_url:
+            "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2F453ccc62-8f27-41a6-842a-4c2ac38b1615.image.png?v=1572289097721"
         },
         {
           content_type: "text",
           title: "Blue",
           payload: "Blue",
-          image_url: "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572289189254"
+          image_url:
+            "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572289189254"
         }
       ]
     };
-    console.log("response "+response)
+    console.log("response " + response);
   }
-  handlePostback(sender_psid, received_message) 
+  handlePostback(sender_psid, received_message);
 
   // Send the response message
   callSendAPI(sender_psid, response);
@@ -123,6 +125,7 @@ function callSendAPI(sender_psid, response) {
     recipient: {
       id: sender_psid
     },
+    messaging_type: "RESPONSE",
     message: response
   };
 
@@ -150,11 +153,11 @@ function handlePostback(sender_psid, received_postback) {
   // Get the payload for the postback
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
-  console.log("color-payload "+ JSON.stringify(received_postback.payload));
+  console.log("color-payload " + JSON.stringify(received_postback.quick_reply));
   // Set the response based on the postback payload
   if (payload === "Blue") {
     response = { text: "You Chose blue" };
-  } else if (payload === "no") {
+  } else if (payload === "Red") {
     response = { text: "you chose Red" };
   }
   // Send the message to acknowledge the postback
