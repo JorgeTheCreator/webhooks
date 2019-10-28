@@ -32,7 +32,7 @@ app.post("/webhook", (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      console.log("color:: " + JSON.stringify(webhook_event.quick_replies));
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
@@ -108,9 +108,9 @@ function handleMessage(sender_psid, received_message) {
           image_url: "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572289189254"
         }
       ]
-      
     };
   }
+  handlePostback(sender_psid, received_message) 
 
   // Send the response message
   callSendAPI(sender_psid, response);
@@ -150,10 +150,10 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
   // Set the response based on the postback payload
-  if (payload === "yes") {
-    response = { text: "Thanks! Joshi" };
+  if (payload === "Blue") {
+    response = { text: "You Chose blue" };
   } else if (payload === "no") {
-    response = { text: "Oops, try sending another image." };
+    response = { text: "you " };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
