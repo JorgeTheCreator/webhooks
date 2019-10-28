@@ -104,7 +104,7 @@ function handleMessage(sender_psid, received_message) {
               buttons: [
                 {
                   type: "postback",
-                  title: "Yes!",
+                  title: "verizon YES",
                   payload: "yes"
                 },
                 {
@@ -156,7 +156,7 @@ function handlePostback(sender_psid, received_postback) {
 
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log("PAYLOAD title ---" + JSON.stringify(received_postback.type));
+  console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
   // Set the response based on the postback payload
   if (payload === "yes") {
     response = { text: "Thanks!" };
