@@ -32,7 +32,7 @@ app.post("/webhook", (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log("color:: " + JSON.stringify(webhook_event.quick_reply));
+      console.log("color:: " + JSON.stringify(webhook_event.quick_repl));
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
@@ -153,7 +153,7 @@ function handlePostback(sender_psid, received_postback) {
   // Get the payload for the postback
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
-  console.log("color-payload " + JSON.stringify(received_postback.quick_reply));
+  //console.log("color-payload " + JSON.stringify(received_postback));
   // Set the response based on the postback payload
   if (payload === "Blue") {
     response = { text: "You Chose blue" };
