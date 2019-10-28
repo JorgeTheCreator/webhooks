@@ -98,7 +98,7 @@ function handleMessage(sender_psid, received_message) {
           template_type: "generic",
           elements: [
             {
-              title: "Is this the right picture?",
+              title: "Hey, JOSHI,  Is this the right picture?",
               subtitle: "Tap a button to answer.",
               image_url: attachment_url,
               buttons: [
@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
                 },
                 {
                   type: "postback",
-                  title: "No!",
+                  title: "Verizon NO",
                   payload: "no"
                 }
               ]
@@ -159,7 +159,7 @@ function handlePostback(sender_psid, received_postback) {
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
   // Set the response based on the postback payload
   if (payload === "yes") {
-    response = { text: "Thanks!" };
+    response = { text: "Thanks! Joshi" };
   } else if (payload === "no") {
     response = { text: "Oops, try sending another image." };
   }
