@@ -109,6 +109,7 @@ function handleMessage(sender_psid, received_message) {
         }
       ]
     };
+    console.log("response "+response)
   }
   handlePostback(sender_psid, received_message) 
 
@@ -149,11 +150,12 @@ function handlePostback(sender_psid, received_postback) {
   // Get the payload for the postback
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
+  console.log("color-payload "+ JSON.stringify(received_postback.payload));
   // Set the response based on the postback payload
   if (payload === "Blue") {
     response = { text: "You Chose blue" };
   } else if (payload === "no") {
-    response = { text: "you " };
+    response = { text: "you chose Red" };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
