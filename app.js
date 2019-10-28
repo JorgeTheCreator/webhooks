@@ -156,7 +156,7 @@ function handlePostback(sender_psid, received_postback) {
 
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log("PAYLOAD " + payload);
+  console.log("PAYLOAD title" + received_postback.title);
   // Set the response based on the postback payload
   if (payload === "yes") {
     response = { text: "Thanks!" };
