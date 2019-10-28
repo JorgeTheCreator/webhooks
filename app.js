@@ -93,31 +93,22 @@ function handleMessage(sender_psid, received_message) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-            {
-              title: "Hey, JOSHI,  Is this the right picture?",
-              subtitle: "Tap a button to answer.",
-              image_url: attachment_url,
-              buttons: [
-                {
-                  type: "postback",
-                  title: "verizon YES",
-                  payload: "yes"
-                },
-                {
-                  type: "postback",
-                  title: "Verizon NO",
-                  payload: "no"
-                }
-              ]
-            }
-          ]
+      text: "What color do you want your phone to be ?",
+      quick_replies: [
+        {
+          content_type: "text",
+          title: "Red",
+          payload: "Red",
+          image_url: "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2F453ccc62-8f27-41a6-842a-4c2ac38b1615.image.png?v=1572289097721"
+        },
+        {
+          content_type: "text",
+          title: "Blue",
+          payload: "Blue",
+          image_url: "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572289189254"
         }
-      }
+      ]
+      
     };
   }
 
