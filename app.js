@@ -156,9 +156,7 @@ function handlePostback(sender_psid, received_postback) {
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
   //console.log("color-payload " + JSON.stringify(received_postback));
   // Set the response based on the postback payload
-  if(received_postback.quick_reply.payload){
-    console.log("yeah it works!!!!!")
-  }
+  
   if (payload === "Blue") {
     response = { text: "You Chose blue" };
   } else if (payload === "Red") {
