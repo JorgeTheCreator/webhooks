@@ -91,7 +91,8 @@ function handleMessage(sender_psid, received_message) {
     );
     let payload = received_message.quick_reply.payload
     response = Messaging.genText(`hi you i love ${payload}`);
-    console.log(response.text);
+    console.log(payload);
+    handlePostback(sender_psid, received_message)
   }
   // Checks if the message contains text
   if (received_message.text) {
@@ -165,7 +166,7 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(payload));
   // Set the response based on the postback payload
-  if (payload === "yes") {
+  if (payload === "Cat") {
     response = { text: "Thanks! Joshi" };
   } else if (payload === "no") {
     response = { text: "Oops, try sending another image." };
