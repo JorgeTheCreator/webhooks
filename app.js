@@ -45,6 +45,7 @@ app.post("/webhook", (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
+        console.log('webhook postback '+JSON.stringify(webhook_event.postback));
       }
     });
 
