@@ -89,7 +89,7 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    response = Messaging.genQuickReply("jorge", [
+    response = Messaging.genQuickReply("Whats your favorite color?",[
       {
         "content_type":"user_phone_number",
         "title":"Red",
@@ -123,9 +123,10 @@ function handleMessage(sender_psid, received_message) {
       ]
     );
   }
-  else if (received_message.quick_reply){
+  else if (received_message.quick_replies){
     let payload = received_message.quick_reply.payload
     response = {text:`you favorite color is ${payload}`}
+    console.log('------------------quickreply--------------')
   }
   // Send the response message
   callSendAPI(sender_psid, response);
