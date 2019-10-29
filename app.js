@@ -32,7 +32,7 @@ app.post("/webhook", (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
-      //console.log("color:: " + JSON.stringify(webhook_event));
+      console.log(webhook_event);
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
@@ -93,27 +93,33 @@ function handleMessage(sender_psid, received_message) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
-      text: "What color do you want your phone to be ?",
-      quick_replies: [
-        {
-          content_type: "text",
-          title: "Red",
-          payload: "Red",
-          image_url:
-            "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2F453ccc62-8f27-41a6-842a-4c2ac38b1615.image.png?v=1572289097721"
-        },
-        {
-          content_type: "text",
-          title: "Blue",
-          payload: "Blue",
-          image_url:
-            "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572289189254"
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title: "Hey, JOSHI,  Is this the right picture?",
+              subtitle: "Tap a button to answer.",
+              image_url: attachment_url,
+              buttons: [
+                {
+                  type: "postback",
+                  title: "verizon YES",
+                  payload: "yes"
+                },
+                {
+                  type: "postback",
+                  title: "Verizon NO",
+                  payload: "no"
+                }
+              ]
+            }
+          ]
         }
-      ]
+      }
     };
-    console.log("response " + response);
   }
-  handlePostback(sender_psid, received_message);
 
   // Send the response message
   callSendAPI(sender_psid, response);
@@ -125,7 +131,6 @@ function callSendAPI(sender_psid, response) {
     recipient: {
       id: sender_psid
     },
-    messaging_type: "RESPONSE",
     message: response
   };
 
@@ -152,15 +157,12 @@ function handlePostback(sender_psid, received_postback) {
 
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log('color+++ '+JSON.stringify(payload))
   console.log("PAYLOAD title ---" + JSON.stringify(received_postback));
-  //console.log("color-payload " + JSON.stringify(received_postback));
   // Set the response based on the postback payload
-  
-  if (payload === "Blue") {
-    response = { text: "You Chose blue" };
-  } else if (payload === "Red") {
-    response = { text: "you chose Red" };
+  if (payload === "yes") {
+    response = { text: "Thanks! Joshi" };
+  } else if (payload === "no") {
+    response = { text: "Oops, try sending another image." };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
