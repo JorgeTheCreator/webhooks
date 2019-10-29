@@ -24,7 +24,8 @@ module.exports = class Messaging {
       response["quick_replies"].push({
         content_type: "text",
         title: quickReply["title"],
-        payload: quickReply["payload"]
+        payload: quickReply["payload"],
+        image_url:quickReply["image_url"]
       });
     }
 

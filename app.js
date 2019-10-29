@@ -85,7 +85,7 @@ app.get("/webhook", (req, res) => {
 function handleMessage(sender_psid, received_message) {
   let response;
  if (received_message.quick_reply){
-   console.log('----------------------jp-------------------')
+   console.log(`-------------${received_message.quick_reply.payload}------------`)
    response = Messaging.genText('hi ther');
    
  }
@@ -95,13 +95,13 @@ function handleMessage(sender_psid, received_message) {
     // will be added to the body of our request to the Send API
     response = Messaging.genQuickReply("Whats your favorite color?",[
       {
-        "content_type":"user_phone_number",
-        "title":"Red",
+        "content_type":"text",
+        "title":"computer",
         "payload":"computer",
         "image_url":"https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
       },{
-        "content_type":"user_phone_number",
-        "title":"Green",
+        "content_type":"text",
+        "title":"cat",
         "payload":"Cat",
         "image_url":"https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
       }
