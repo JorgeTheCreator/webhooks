@@ -17,7 +17,6 @@ const request = require("request"),
   app = express().use(body_parser.json()), // creates express http server
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
   Messaging = require("./Messaging");
-  
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -46,7 +45,9 @@ app.post("/webhook", (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
-        console.log('webhook postback '+JSON.stringify(webhook_event.postback));
+        console.log(
+          "webhook postback " + JSON.stringify(webhook_event.postback)
+        );
       }
     });
 
@@ -84,53 +85,54 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
- if (received_message.quick_reply){
-   console.log(`-------------${received_message.quick_reply.payload}------------`)
-   response = Messaging.genText('hi ther');
-   
- }
+  if (received_message.quick_reply) {
+    console.log(
+      `-------------${received_message.quick_reply.payload}------------`
+    );
+    if (received_message.quick_reply.payload === "Cat") {
+      console.log("hiii");
+      return;
+    }
+    response = Messaging.genText("hi");
+    return;
+  }
   // Checks if the message contains text
   if (received_message.text) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    response = Messaging.genQuickReply("Whats your favorite color?",[
+    response = Messaging.genQuickReply("Whats your favorite color?", [
       {
-        "content_type":"text",
-        "title":"computer",
-        "payload":"computer",
-        "image_url":"https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
-      },{
-        "content_type":"text",
-        "title":"cat",
-        "payload":"Cat",
-        "image_url":"https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
+        content_type: "location",
+        title: "computer",
+        payload: "computer",
+        image_url: "https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
+      },
+      {
+        content_type: "location",
+        title: "cat",
+        payload: "Cat",
+        image_url: "https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
       }
-    ])
+    ]);
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = Messaging.genGenericTemplate(
-      attachment_url,
-      "title",
-      null,
-      [
-        {
-          type: "postback",
-          title: "verizon YES",
-          payload: "yes"
-        },
-        {
-          type: "postback",
-          title: "Verizon NO",
-          payload: "no"
-        }
-      ]
-    );
-  }
-  else if (received_message.quick_replies){
-    let payload = received_message.quick_reply.payload
-    response = {text:`you favorite color is ${payload}`}
-    console.log('------------------quickreply--------------')
+    response = Messaging.genGenericTemplate(attachment_url, "title", null, [
+      {
+        type: "postback",
+        title: "verizon YES",
+        payload: "yes"
+      },
+      {
+        type: "postback",
+        title: "Verizon NO",
+        payload: "no"
+      }
+    ]);
+  } else if (received_message.quick_replies) {
+    let payload = received_message.quick_reply.payload;
+    response = { text: `you favorite color is ${payload}` };
+    console.log("------------------quickreply--------------");
   }
   // Send the response message
   callSendAPI(sender_psid, response);
@@ -168,7 +170,7 @@ function handlePostback(sender_psid, received_postback) {
 
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log("PAYLOAD title ---" + JSON.stringify(payload ));
+  console.log("PAYLOAD title ---" + JSON.stringify(payload));
   // Set the response based on the postback payload
   if (payload === "yes") {
     response = { text: "Thanks! Joshi" };
