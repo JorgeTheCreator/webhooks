@@ -14,6 +14,7 @@
 
 module.exports = class Messaging {
   static genQuickReply(text, quickReplies) {
+    
     let response = {
       text: text,
       quick_replies: []

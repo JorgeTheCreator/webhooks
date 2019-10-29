@@ -89,9 +89,19 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    response = {
-      text: `You sent the message: "${received_message.text}". Now send me an attachment!`
-    };
+    response = Messaging.genQuickReply("jorge", [
+      {
+        "content_type":"user_phone_number",
+        "title":"Red",
+        "payload":"computer",
+        "image_url":"https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
+      },{
+        "content_type":"user_phone_number",
+        "title":"Green",
+        "payload":"Cat",
+        "image_url":"https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
+      }
+    ])
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
@@ -115,19 +125,7 @@ function handleMessage(sender_psid, received_message) {
   }
   else if (received_message.quick_reply){
     let payload = received_message.quick_reply.payload
-    response = Messaging.genQuickReply("jorge", [
-      {
-        "content_type":"user_phone_number",
-        "title":"Red",
-        "payload":"computer",
-        "image_url":"https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
-      },{
-        "content_type":"user_phone_number",
-        "title":"Green",
-        "payload":"Cat",
-        "image_url":"https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
-      }
-    ])
+    response = {text:`you favorite color is ${payload}`}
   }
   // Send the response message
   callSendAPI(sender_psid, response);
