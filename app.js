@@ -16,8 +16,8 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()), // creates express http server
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
-  Messaging = require("./Messaging"),
-  Handling = require("Handling")
+  Messaging = require("./Messaging");
+  
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -113,7 +113,9 @@ function handleMessage(sender_psid, received_message) {
       ]
     );
   }
-
+  else if (received_message.quick_reply){
+    let payload = received_message.quick_reply.payload
+  }
   // Send the response message
   callSendAPI(sender_psid, response);
 }
