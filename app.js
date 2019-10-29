@@ -89,12 +89,9 @@ function handleMessage(sender_psid, received_message) {
     console.log(
       `-------------${received_message.quick_reply.payload}------------`
     );
-    if (received_message.quick_reply.payload === "Cat") {
-      console.log("hiii");
-      return;
-    }
-    response = Messaging.genText("hi");
-    return;
+    let payload = received_message.quick_reply.payload
+    response = Messaging.genText(`hi you i love ${payload}`);
+    console.log(response.text);
   }
   // Checks if the message contains text
   if (received_message.text) {
@@ -129,11 +126,7 @@ function handleMessage(sender_psid, received_message) {
         payload: "no"
       }
     ]);
-  } else if (received_message.quick_replies) {
-    let payload = received_message.quick_reply.payload;
-    response = { text: `you favorite color is ${payload}` };
-    console.log("------------------quickreply--------------");
-  }
+  } 
   // Send the response message
   callSendAPI(sender_psid, response);
 }
