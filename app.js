@@ -96,7 +96,7 @@ function handleMessage(sender_psid, received_message) {
     response = Messaging.genGenericTemplate(
       attachment_url,
       "title",
-      "",
+      null,
       [
         {
           type: "postback",
