@@ -16,7 +16,7 @@ const request = require("request"),
   body_parser = require("body-parser"),
   app = express().use(body_parser.json()), // creates express http server
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
-  Messaging = require('./Messaging');
+  Messaging = require("./Messaging");
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -93,33 +93,23 @@ function handleMessage(sender_psid, received_message) {
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-            {
-              title: "Hey, JOSHI,  Is this the right picture?",
-              subtitle: "Tap a button to answer.",
-              image_url: attachment_url,
-              buttons: [
-                {
-                  type: "postback",
-                  title: "verizon YES",
-                  payload: "yes"
-                },
-                {
-                  type: "postback",
-                  title: "Verizon NO",
-                  payload: "no"
-                }
-              ]
-            }
-          ]
+    response = Messaging.genGenericTemplate(
+      attachment_url,
+      "title",
+      "",
+      [
+        {
+          type: "postback",
+          title: "verizon YES",
+          payload: "yes"
+        },
+        {
+          type: "postback",
+          title: "Verizon NO",
+          payload: "no"
         }
-      }
-    };
+      ]
+    );
   }
 
   // Send the response message
