@@ -117,12 +117,12 @@ function handleMessage(sender_psid, received_message) {
     let payload = received_message.quick_reply.payload
     response = Messaging.genQuickReply("jorge", [
       {
-        "content_type":"text",
+        "content_type":"user_phone_number",
         "title":"Red",
         "payload":"computer",
         "image_url":"https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
       },{
-        "content_type":"text",
+        "content_type":"user_phone_number",
         "title":"Green",
         "payload":"Cat",
         "image_url":"https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
