@@ -96,25 +96,9 @@ function handleMessage(sender_psid, received_message) {
     // Get the URL of the message attachment
     response = Messaging.genQuickReply('hi','df');
     let attachment_url = received_message.attachments[0].payload.url;
-    response = Messaging.genGenericTemplate(
-      attachment_url,
-      "title",
-      null,
-      [
-        {
-          type: "postback",
-          title: "verizon YES",
-          payload: "yes"
-        },
-        {
-          type: "postback",
-          title: "Verizon NO",
-          payload: "no"
-        }
-      ]
-    );
+    response = Messaging.genQuickReply('hi','df');  
+  
   }
-
   // Send the response message
   callSendAPI(sender_psid, response);
 }
