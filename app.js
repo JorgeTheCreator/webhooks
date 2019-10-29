@@ -87,16 +87,17 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    response = {
-      text: `You sent the message: "${received_message.text}". Now send me an attachment!`
-    };
+    // response = {
+    //   text: `You sent the message: "${received_message.text}". Now send me an attachment!`
+    // };
+    response = Messaging.genText(`you sent the message: ${received_message.text}. Now send me an attachment!`)
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = Messaging.genGenericTemplate(
       attachment_url,
       "title",
-      "",
+      null,
       [
         {
           type: "postback",
