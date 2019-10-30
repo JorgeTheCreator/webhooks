@@ -14,7 +14,6 @@
 
 module.exports = class Messaging {
   static genQuickReply(text, quickReplies) {
-    
     let response = {
       text: text,
       quick_replies: []
@@ -24,8 +23,8 @@ module.exports = class Messaging {
       response["quick_replies"].push({
         content_type: "text",
         title: quickReply["title"],
-        payload: quickReply["payload"],
-        image_url:quickReply["image_url"]
+        image_url: quickReply["image_url"],
+        payload: quickReply["payload"]
       });
     }
 
@@ -87,7 +86,6 @@ module.exports = class Messaging {
 
     return response;
   }
- 
 
   static genText(text) {
     let response = {
@@ -126,26 +124,26 @@ module.exports = class Messaging {
     return response;
   }
 
-//   static genNuxMessage(user) {
-//     let welcome = this.genText(
-//       i18n.__("get_started.welcome", {
-//         userFirstName: user.firstName
-//       })
-//     );
+  //   static genNuxMessage(user) {
+  //     let welcome = this.genText(
+  //       i18n.__("get_started.welcome", {
+  //         userFirstName: user.firstName
+  //       })
+  //     );
 
-//     let guide = this.genText(i18n.__("get_started.guidance"));
+  //     let guide = this.genText(i18n.__("get_started.guidance"));
 
-//     let curation = this.genQuickReply(i18n.__("get_started.help"), [
-//       {
-//         title: i18n.__("menu.suggestion"),
-//         payload: "CURATION"
-//       },
-//       {
-//         title: i18n.__("menu.help"),
-//         payload: "CARE_HELP"
-//       }
-//     ]);
+  //     let curation = this.genQuickReply(i18n.__("get_started.help"), [
+  //       {
+  //         title: i18n.__("menu.suggestion"),
+  //         payload: "CURATION"
+  //       },
+  //       {
+  //         title: i18n.__("menu.help"),
+  //         payload: "CARE_HELP"
+  //       }
+  //     ]);
 
-//     return [welcome, guide, curation];
-//   }
+  //     return [welcome, guide, curation];
+  //   }
 };

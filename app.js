@@ -85,12 +85,12 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  console.log('-------times--------')
+  console.log("-------times--------");
   if (received_message.quick_reply) {
     console.log(
       `-------------${received_message.quick_reply.payload}------------`
     );
-    let payload = received_message.quick_reply.payload
+    let payload = received_message.quick_reply.payload;
     response = Messaging.genText(`Awesome so you Like ${payload}`);
     return callSendAPI(sender_psid, response);
   }
@@ -102,14 +102,15 @@ function handleMessage(sender_psid, received_message) {
       {
         content_type: "location",
         title: "computer",
-        payload: "computer",
-        image_url: "https://cdn.hyperdev.com/paste-me.svg?v=1477325869954"
+        image_url:
+          "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572404712863",
+        payload: "computer"
       },
       {
         content_type: "location",
         title: "cat",
-        payload: "Cat",
-        image_url: "https://cdn.hyperdev.com/click-me.svg?v=1477239469954"
+        image_url: "https://cdn.hyperdev.com/click-me.svg?v=1477239469954",
+        payload: "Cat"
       }
     ]);
   } else if (received_message.attachments) {
@@ -127,11 +128,11 @@ function handleMessage(sender_psid, received_message) {
         payload: "no"
       }
     ]);
-  } else if(received_message.text === "Computer"){
-  response = Messaging.genText(`hi you i love`);
+  } else if (received_message.text === "Computer") {
+    response = Messaging.genText(`hi you i love`);
   }
   // Send the response message
-    console.log('-------senApi--------')
+  console.log("-------senApi--------");
   callSendAPI(sender_psid, response);
 }
 
