@@ -94,6 +94,9 @@ function handleMessage(sender_psid, received_message) {
     response = Messaging.genText(`hi you i love ${payload}`);
     //return callSendAPI(sender_psid, response);
   }
+  else if(received_message.text === "Computer"){
+  response = Messaging.genText(`hi you i love`);
+  }
   // Checks if the message contains text
   if (received_message.text) {
     // Create the payload for a basic text message, which
@@ -129,6 +132,7 @@ function handleMessage(sender_psid, received_message) {
     ]);
   } 
   // Send the response message
+    console.log('-------senApi--------')
   callSendAPI(sender_psid, response);
 }
 
