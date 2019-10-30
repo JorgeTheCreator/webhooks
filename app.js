@@ -91,8 +91,8 @@ function handleMessage(sender_psid, received_message) {
       `-------------${received_message.quick_reply.payload}------------`
     );
     let payload = received_message.quick_reply.payload
-    response = Messaging.genText(`hi you i love ${payload}`);
-    //return callSendAPI(sender_psid, response);
+    response = Messaging.genText(`Awesome so you Like ${payload}`);
+    return callSendAPI(sender_psid, response);
   }
   // Checks if the message contains text
   if (received_message.text) {
@@ -133,7 +133,6 @@ function handleMessage(sender_psid, received_message) {
   // Send the response message
     console.log('-------senApi--------')
   callSendAPI(sender_psid, response);
-  return response
 }
 
 function callSendAPI(sender_psid, response) {
