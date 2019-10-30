@@ -85,14 +85,14 @@ app.get("/webhook", (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
+  console.log('-------times--------')
   if (received_message.quick_reply) {
     console.log(
       `-------------${received_message.quick_reply.payload}------------`
     );
     let payload = received_message.quick_reply.payload
     response = Messaging.genText(`hi you i love ${payload}`);
-    console.log(payload);
-    handlePostback(sender_psid, received_message)
+    //return callSendAPI(sender_psid, response);
   }
   // Checks if the message contains text
   if (received_message.text) {
