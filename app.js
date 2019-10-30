@@ -101,16 +101,18 @@ function handleMessage(sender_psid, received_message) {
     response = Messaging.genQuickReply("Whats your favorite color?", [
       {
         content_type: "location",
-        title: "computer",
+        title: "blue",
         image_url:
           "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572404712863",
-        payload: "computer"
+        payload: "blue"
       },
       {
         content_type: "location",
-        title: "cat",
-        image_url: "https://cdn.hyperdev.com/click-me.svg?v=1477239469954",
-        payload: "Cat"
+        title: "red",
+
+        payload: "red",
+        image_url:
+          "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fred.jpeg?v=1572405061036"
       }
     ]);
   } else if (received_message.attachments) {
