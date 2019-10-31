@@ -144,7 +144,12 @@ function handleMessage(sender_psid, received_message) {
 
   // Checks if the message contains text
   if (received_message.text) {
-    switch (received_message.replace(/[^\w\s]/gi, '').trim().toLowerCase()) {
+    switch (
+      received_message.text
+        .replace(/[^\w\s]/gi, " ")
+        .trim()
+        .toLowerCase()
+    ) {
       case "hey 123":
         response = setRoomPreferences();
         console.log("yyyyrtyryttututututuutuutuutuututu");
@@ -168,9 +173,13 @@ function handleMessage(sender_psid, received_message) {
 
 // Define the template and webview
 function setRoomPreferences() {
-  let response = Messaging.genText(
-    "OK, let's set your room preferences so I won't need to ask for them in the future."
-  );
+  let response = Messaging.genButtonTemplate("help",[{
+                    type: "web_url",
+                    url: "www.google.com",
+                    title: "Set preferences",
+                    webview_height_ratio: "compact",
+                    messenger_extensions: true
+                }]) ;
   return response;
 }
 
