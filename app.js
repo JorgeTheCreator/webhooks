@@ -152,7 +152,7 @@ function handleMessage(sender_psid, received_message) {
     ) {
       case "123":
         response = setRoomPreferences();
-        console.log("yyyyrtyryttututututuutuutuutuututu");
+        console.log("resp----------------->>>>>>> "+response);
         break;
       default:
         response = {
@@ -218,10 +218,10 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
   console.log("PAYLOAD title ---" + JSON.stringify(payload));
   // Set the response based on the postback payload
-  if (payload === "Cat") {
-    response = { text: "Thanks! Joshi" };
-  } else if (payload === "no") {
-    response = { text: "Oops, try sending another image." };
+  if (payload === "YES") {
+    response = { text: "Thats awesome!..well continue working:)" };
+  } else if (payload === "NO") {
+    response = Messaging.genQuickReply(text, quickReplies)
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
