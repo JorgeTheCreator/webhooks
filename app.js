@@ -155,7 +155,11 @@ function handleMessage(sender_psid, received_message) {
         console.log("resp----------------->>>>>>> " + response);
         break;
       case "rey":
-        response = Messaging.genText('OK Rey is fired! Thank You')
+        response = Messaging.genText("OK send me picture of Rey");
+        console.log("resp----------------->>>>>>> " + response);
+        break;
+      case "yes":
+        response = Messaging.genText("OK by the end of today he'll be fired!");
         console.log("resp----------------->>>>>>> " + response);
         break;
       default:
@@ -166,21 +170,22 @@ function handleMessage(sender_psid, received_message) {
         break;
     }
   } else if (received_message.attachments) {
-//     // Get the URL of the message attachment
-//     let attachment_url = received_message.attachments[0].payload.url;
-//     response = Messaging.genGenericTemplate(attachment_url, "title", null, [
-//       {
-//         type: "postback",
-//         title: "verizon YES",
-//         payload: "yes"
-//       },
-//       {
-//         type: "postback",
-//         title: "Verizon NO",
-//         payload: "no"
-//       }
-//     ]);
-//   }else {
+    // Get the URL of the message attachment
+    let attachment_url = received_message.attachments[0].payload.url;
+    response = Messaging.genGenericTemplate(attachment_url, "Is this Him?", null, [
+      {
+        type: "postback",
+        title: "YES",
+        payload: "Yes"
+      },
+      {
+        type: "postback",
+        title: "NO",
+        payload: "no"
+      }
+    ]);
+    console.log('received_message.attachments[0].payload ---------'+received_message.attachments[0].payload)
+  } else {
     response = {
       text: `Sorry, I don't understand what you mean.`
     };
@@ -240,24 +245,26 @@ function handlePostback(sender_psid, received_postback) {
   if (payload === "YES") {
     response = { text: "Thats awesome!..well continue working:)" };
   } else if (payload === "NO") {
-    response = Messaging.genQuickReply("whom if any, in the team are you having problems with?", [
-     
-      {
-        content_type: "text",
-        title: "Eric",
-        payload: "<POSTBACK_PAYLOAD>",
-      },
-       {
-        content_type: "text",
-        title: "Rey",
-        payload: "<POSTBACK_PAYLOAD>",
-      },
+    response = Messaging.genQuickReply(
+      "whom if any, in the team are you having problems with?",
+      [
         {
-        content_type: "text",
-        title: "shevil",
-        payload: "<POSTBACK_PAYLOAD>",
-      }
-    ]);
+          content_type: "text",
+          title: "Eric",
+          payload: "<POSTBACK_PAYLOAD>"
+        },
+        {
+          content_type: "text",
+          title: "Rey",
+          payload: "<POSTBACK_PAYLOAD>"
+        },
+        {
+          content_type: "text",
+          title: "shevil",
+          payload: "<POSTBACK_PAYLOAD>"
+        }
+      ]
+    );
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
