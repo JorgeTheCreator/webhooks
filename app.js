@@ -145,18 +145,17 @@ function handleMessage(sender_psid, received_message) {
   // Checks if the message contains text
   if (received_message.text) {
     switch (
-      received_message.text
-        .replace(/[^\w\s]/gi, "")
-        .trim()
-        .toLowerCase()
+      received_message.text.toLowerCase(sender_psid)
     ) {
       case "room preferences":
-        response = setRoomPreferences(sender_psid);
+        response = setRoomPreferences();
+         console.log('yyyyrtyryttututututuutuutuutuututu')
         break;
       default:
         response = {
           text: `You sent the message: "${received_message.text}".`
         };
+       
         break;
     }
   } else {
@@ -170,11 +169,9 @@ function handleMessage(sender_psid, received_message) {
 }
 
 // Define the template and webview
-function setRoomPreferences(sender_psid) {
+function setRoomPreferences() {
   let response = Messaging.genButtonTemplate(
-    "OK, let's set your room preferences 
-    so I won't need to ask for 
-    them in the future.",
+    "OK, let's set your room preferences so I won't need to ask for them in the future.",
     [
       {
         type: "web_url",
