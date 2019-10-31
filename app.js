@@ -180,12 +180,12 @@ function handleMessage(sender_psid, received_message) {
         {
           type: "postback",
           title: "YES!",
-          payload: "YES"
+          payload: "Yes"
         },
         {
           type: "postback",
           title: "NO!",
-          payload: "NO"
+          payload: "No"
         }
       ]
     );
@@ -276,7 +276,7 @@ function handlePostback(sender_psid, received_postback) {
       ]
     );
   }else if(payloadtitle === "YES!"){
-    
+    response = { text: "By the end of the week he'll be fired!" };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
