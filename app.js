@@ -83,61 +83,110 @@ app.get("/webhook", (req, res) => {
   }
 });
 
+// function handleMessage(sender_psid, received_message) {
+//   let response;
+//   console.log("-------times--------");
+//   if (received_message.quick_reply) {
+//     console.log(
+//       `-------------${received_message.quick_reply.payload}------------`
+//     );
+//     let payload = received_message.quick_reply.payload;
+//     response = Messaging.genText(`Awesome so you Like ${payload}`);
+//     return callSendAPI(sender_psid, response);
+//   }
+//   // Checks if the message contains text
+//   if (received_message.text) {
+//     // Create the payload for a basic text message, which
+//     // will be added to the body of our request to the Send API
+//     response = Messaging.genQuickReply("Whats your favorite color?", [
+//       {
+//         content_type: "location",
+//         title: "blue",
+//         image_url:
+//           "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572404712863",
+//         payload: "blue"
+//       },
+//       {
+//         content_type: "location",
+//         title: "red",
+
+//         payload: "red",
+//         image_url:
+//           "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fred.jpeg?v=1572405061036"
+//       }
+//     ]);
+//   } else if (received_message.attachments) {
+//     // Get the URL of the message attachment
+//     let attachment_url = received_message.attachments[0].payload.url;
+//     response = Messaging.genGenericTemplate(attachment_url, "title", null, [
+//       {
+//         type: "postback",
+//         title: "verizon YES",
+//         payload: "yes"
+//       },
+//       {
+//         type: "postback",
+//         title: "Verizon NO",
+//         payload: "no"
+//       }
+//     ]);
+//   } else if (received_message.text === "Computer") {
+//     response = Messaging.genText(`hi you i love`);
+//   }
+//   // Send the response message
+//   console.log("-------senApi--------");
+//   callSendAPI(sender_psid, response);
+// }
+
+// Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
-  console.log("-------times--------");
-  if (received_message.quick_reply) {
-    console.log(
-      `-------------${received_message.quick_reply.payload}------------`
-    );
-    let payload = received_message.quick_reply.payload;
-    response = Messaging.genText(`Awesome so you Like ${payload}`);
-    return callSendAPI(sender_psid, response);
-  }
+
   // Checks if the message contains text
   if (received_message.text) {
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
-    response = Messaging.genQuickReply("Whats your favorite color?", [
-      {
-        content_type: "location",
-        title: "blue",
-        image_url:
-          "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fblue.png?v=1572404712863",
-        payload: "blue"
-      },
-      {
-        content_type: "location",
-        title: "red",
-
-        payload: "red",
-        image_url:
-          "https://cdn.glitch.com/5fbe4e6f-8e2c-4cc7-88c1-20da4579840b%2Fred.jpeg?v=1572405061036"
-      }
-    ]);
-  } else if (received_message.attachments) {
-    // Get the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-    response = Messaging.genGenericTemplate(attachment_url, "title", null, [
-      {
-        type: "postback",
-        title: "verizon YES",
-        payload: "yes"
-      },
-      {
-        type: "postback",
-        title: "Verizon NO",
-        payload: "no"
-      }
-    ]);
-  } else if (received_message.text === "Computer") {
-    response = Messaging.genText(`hi you i love`);
+    switch (
+      received_message.text
+        .replace(/[^\w\s]/gi, "")
+        .trim()
+        .toLowerCase()
+    ) {
+      case "room preferences":
+        response = setRoomPreferences(sender_psid);
+        break;
+      default:
+        response = {
+          text: `You sent the message: "${received_message.text}".`
+        };
+        break;
+    }
+  } else {
+    response = {
+      text: `Sorry, I don't understand what you mean.`
+    };
   }
+
   // Send the response message
-  console.log("-------senApi--------");
   callSendAPI(sender_psid, response);
 }
 
+// Define the template and webview
+function setRoomPreferences(sender_psid) {
+  let response = Messaging.genButtonTemplate(
+    "OK, let's set your room preferences 
+    so I won't need to ask for 
+    them in the future.",
+    [
+      {
+        type: "web_url",
+        url: "https://www.google.com",
+        title: "Set preferences",
+        webview_height_ratio: "compact",
+        messenger_extensions: true
+      }
+    ]
+  );
+  return response;
+}
 function callSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
