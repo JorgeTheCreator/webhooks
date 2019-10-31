@@ -150,7 +150,7 @@ function handleMessage(sender_psid, received_message) {
         .trim()
         .toLowerCase()
     ) {
-      case "123":
+      case "verizon":
         response = setRoomPreferences();
         console.log("resp----------------->>>>>>> " + response);
         break;
@@ -158,13 +158,17 @@ function handleMessage(sender_psid, received_message) {
         response = Messaging.genText("OK send me picture of Rey");
         console.log("resp----------------->>>>>>> " + response);
         break;
-      case "yes":
-        response = Messaging.genText("OK by the end of today he'll be fired!");
+       case "schivil":
+        response = Messaging.genText("OK send me picture of shivil");
+        console.log("resp----------------->>>>>>> " + response);
+        break;
+      case "eric":
+        response = response = Messaging.genText("Oh really? ..OK send me picture of Eric");
         console.log("resp----------------->>>>>>> " + response);
         break;
       default:
         response = {
-          text: `You sent the message: "${received_message.text}".`
+          text: `You sent me the text: "${received_message.text}" .`
         };
 
         break;
@@ -277,6 +281,8 @@ function handlePostback(sender_psid, received_postback) {
     );
   }else if(payloadtitle === "YES!"){
     response = { text: "By the end of the week he'll be fired!" };
+  }else if(payloadtitle === "NO!"){
+    response = { text: "Ok dude, just send me the correct picture" };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
