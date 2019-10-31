@@ -155,7 +155,7 @@ function handleMessage(sender_psid, received_message) {
         console.log("resp----------------->>>>>>> " + response);
         break;
       case "rey":
-        response = Messaging.genQuickReply
+        response = Messaging.genText('OK Rey is fired! Thank You')
         console.log("resp----------------->>>>>>> " + response);
         break;
       default:
