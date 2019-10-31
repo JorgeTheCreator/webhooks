@@ -173,19 +173,13 @@ function handleMessage(sender_psid, received_message) {
 
 // Define the template and webview
 function setRoomPreferences() {
-  let buttons = [
-    {
-      type: "postback",
-      title: "YES",
-      payload: "YES"
-    },
-    {
-      type: "postback",
-      title: "NO",
-      payload: "NO"
-    }
-  ];
-  let response = Messaging.genPostbackButton("hey there", "title", "payload") ;
+  let response = Messaging.genPostbackButton(
+    "hey there, do you like working for VERIZON?",
+    "YES",
+    "YES",
+    "NO",
+    "NO"
+  );
 
   return response;
 }
