@@ -152,7 +152,11 @@ function handleMessage(sender_psid, received_message) {
     ) {
       case "123":
         response = setRoomPreferences();
-        console.log("resp----------------->>>>>>> "+response);
+        console.log("resp----------------->>>>>>> " + response);
+        break;
+      case "rey":
+        response = Messaging.genQuickReply
+        console.log("resp----------------->>>>>>> " + response);
         break;
       default:
         response = {
@@ -221,7 +225,24 @@ function handlePostback(sender_psid, received_postback) {
   if (payload === "YES") {
     response = { text: "Thats awesome!..well continue working:)" };
   } else if (payload === "NO") {
-    response = Messaging.genQuickReply(text, quickReplies)
+    response = Messaging.genQuickReply("whom if any, in the team are you having problems with?", [
+     
+      {
+        content_type: "text",
+        title: "Eric",
+        payload: "<POSTBACK_PAYLOAD>",
+      },
+       {
+        content_type: "text",
+        title: "Rey",
+        payload: "<POSTBACK_PAYLOAD>",
+      },
+        {
+        content_type: "text",
+        title: "shevil",
+        payload: "<POSTBACK_PAYLOAD>",
+      }
+    ]);
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
