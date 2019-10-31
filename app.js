@@ -165,7 +165,22 @@ function handleMessage(sender_psid, received_message) {
 
         break;
     }
-  } else {
+  } else if (received_message.attachments) {
+//     // Get the URL of the message attachment
+//     let attachment_url = received_message.attachments[0].payload.url;
+//     response = Messaging.genGenericTemplate(attachment_url, "title", null, [
+//       {
+//         type: "postback",
+//         title: "verizon YES",
+//         payload: "yes"
+//       },
+//       {
+//         type: "postback",
+//         title: "Verizon NO",
+//         payload: "no"
+//       }
+//     ]);
+//   }else {
     response = {
       text: `Sorry, I don't understand what you mean.`
     };
