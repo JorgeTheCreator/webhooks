@@ -179,12 +179,12 @@ function handleMessage(sender_psid, received_message) {
       [
         {
           type: "postback",
-          title: "YES",
+          title: "YES!",
           payload: "YES"
         },
         {
           type: "postback",
-          title: "NO",
+          title: "NO!",
           payload: "NO"
         }
       ]
@@ -249,7 +249,8 @@ function handlePostback(sender_psid, received_postback) {
 
   // Get the payload for the postback
   let payload = received_postback.payload;
-  console.log("PAYLOAD title ---" + JSON.stringify(payload));
+  let payloadtitle = received_postback.title;
+  console.log("PAYLOAD title ---" + JSON.stringify(payloadtitle ));
   // Set the response based on the postback payload
   if (payload === "YES") {
     response = { text: "Thats awesome!..well continue working:)" };
@@ -274,6 +275,8 @@ function handlePostback(sender_psid, received_postback) {
         }
       ]
     );
+  }else if(payloadtitle === "YES!"){
+    
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
