@@ -104,13 +104,13 @@ module.exports = class Messaging {
     return response;
   }
 
-  static genPostbackButton(button) {
+  static genPostbackButton(text,button) {
     let response = {
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text: "Try the postback button!",
+          text: text,
           buttons: button
         }
       }

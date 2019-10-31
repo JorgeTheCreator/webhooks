@@ -150,7 +150,7 @@ function handleMessage(sender_psid, received_message) {
         .trim()
         .toLowerCase()
     ) {
-      case "hey 123":
+      case "123":
         response = setRoomPreferences();
         console.log("yyyyrtyryttututututuutuutuutuututu");
         break;
@@ -173,11 +173,19 @@ function handleMessage(sender_psid, received_message) {
 
 // Define the template and webview
 function setRoomPreferences() {
-  let response = Messaging.genPostbackButton({
-  "type":"postback",
-  "title":"<BUTTON_TEXT>",
-  "payload":"<DEVELOPER_DEFINED_PAYLOAD>"
-});
+  let buttons = [
+    {
+      type: "postback",
+      title: "YES",
+      payload: "YES"
+    },
+    {
+      type: "postback",
+      title: "NO",
+      payload: "NO"
+    }
+  ];
+  let response = Messaging.genPostbackButton('',buttons);
 
   return response;
 }
