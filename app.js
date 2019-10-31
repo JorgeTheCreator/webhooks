@@ -185,7 +185,7 @@ function setRoomPreferences() {
       payload: "NO"
     }
   ];
-  let response = Messaging.genPostbackButton('',buttons);
+  let response = Messaging.genPostbackButton("hey there", "title", "payload") ;
 
   return response;
 }
