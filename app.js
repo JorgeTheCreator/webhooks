@@ -158,7 +158,7 @@ function handleMessage(sender_psid, received_message) {
         response = Messaging.genText("OK send me picture of Rey");
         console.log("resp----------------->>>>>>> " + response);
         break;
-       case "schivil":
+       case "shivil":
         response = Messaging.genText("OK send me picture of shivil");
         console.log("resp----------------->>>>>>> " + response);
         break;
@@ -168,7 +168,7 @@ function handleMessage(sender_psid, received_message) {
         break;
       default:
         response = {
-          text: `You sent me the text: "${received_message.text}" .`
+          text: ` "${received_message.text}" ? what do you mean?`
         };
 
         break;
@@ -274,7 +274,7 @@ function handlePostback(sender_psid, received_postback) {
         },
         {
           content_type: "text",
-          title: "shevil",
+          title: "shivil",
           payload: "<POSTBACK_PAYLOAD>"
         }
       ]
