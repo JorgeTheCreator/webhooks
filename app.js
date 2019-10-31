@@ -144,18 +144,16 @@ function handleMessage(sender_psid, received_message) {
 
   // Checks if the message contains text
   if (received_message.text) {
-    switch (
-      received_message.text.toLowerCase(sender_psid)
-    ) {
-      case "room preferences":
+    switch (received_message.replace(/[^\w\s]/gi, '').trim().toLowerCase()) {
+      case "hey 123":
         response = setRoomPreferences();
-         console.log('yyyyrtyryttututututuutuutuutuututu')
+        console.log("yyyyrtyryttututututuutuutuutuututu");
         break;
       default:
         response = {
           text: `You sent the message: "${received_message.text}".`
         };
-       
+
         break;
     }
   } else {
@@ -170,20 +168,12 @@ function handleMessage(sender_psid, received_message) {
 
 // Define the template and webview
 function setRoomPreferences() {
-  let response = Messaging.genButtonTemplate(
-    "OK, let's set your room preferences so I won't need to ask for them in the future.",
-    [
-      {
-        type: "web_url",
-        url: "https://www.google.com",
-        title: "Set preferences",
-        webview_height_ratio: "compact",
-        messenger_extensions: true
-      }
-    ]
+  let response = Messaging.genText(
+    "OK, let's set your room preferences so I won't need to ask for them in the future."
   );
   return response;
 }
+
 function callSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
