@@ -172,19 +172,27 @@ function handleMessage(sender_psid, received_message) {
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = Messaging.genGenericTemplate(attachment_url, "Is this Him?", null, [
-      {
-        type: "postback",
-        title: "YES",
-        payload: "Yes"
-      },
-      {
-        type: "postback",
-        title: "NO",
-        payload: "no"
-      }
-    ]);
-    console.log('received_message.attachments[0].payload ---------'+received_message.attachments[0].payload)
+    response = Messaging.genGenericTemplate(
+      attachment_url,
+      "Is this Him?",
+      null,
+      [
+        {
+          type: "postback",
+          title: "YES",
+          payload: "YES"
+        },
+        {
+          type: "postback",
+          title: "NO",
+          payload: "NO"
+        }
+      ]
+    );
+    console.log(
+      "received_message.attachments[0].payload ---------" +
+        JSON.stringify(received_message.attachments[0].payload)
+    );
   } else {
     response = {
       text: `Sorry, I don't understand what you mean.`
@@ -192,6 +200,7 @@ function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
+  //console.log("response*****************" + JSON.stringify(response));
   callSendAPI(sender_psid, response);
 }
 
