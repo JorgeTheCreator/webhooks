@@ -173,13 +173,13 @@ function handleMessage(sender_psid, received_message) {
 
 // Define the template and webview
 function setRoomPreferences() {
-  let response = Messaging.genButtonTemplate("help",[{
-                    type: "web_url",
-                    url: "www.google.com",
-                    title: "Set preferences",
-                    webview_height_ratio: "compact",
-                    messenger_extensions: true
-                }]) ;
+  let response = Messaging.genPostbackButton("hi", [
+    {
+      type: "postback",
+      title: "Postback Button",
+      payload: "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  ]);
   return response;
 }
 
