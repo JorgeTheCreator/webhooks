@@ -113,7 +113,6 @@ module.exports = class Messaging {
           text: text,
           buttons: [
             {
-              webview_height_ratio: "compact",
               type: "postback",
               title,
               payload
